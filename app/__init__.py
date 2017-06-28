@@ -30,6 +30,11 @@ def create_app(config_name):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     # not using sqlalchemy event system, hence disabling it
 
+    UPLOAD_FOLDER = basedir + '/uploads'
+    
+
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
     config[config_name].init_app(app)
 
     # Set up extensions

@@ -42,17 +42,15 @@
                     <thead>
                         <tr>
                             <th>First name</th>
-                            <th class="sorted ascending">Last name</th>
                             <th>Email address</th>
                             <th>Account type</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% for u in users | sort(attribute='last_name') %}
+                    {% for u in users | sort(attribute='first_name') %}
                         <tr onclick="window.location.href = '{{ url_for('admin.user_info', user_id=u.id) }}';">
 
                             <td>{{ u.first_name }}</td>
-                            <td>{{ u.last_name }}</td>
                             <td>{{ u.email }}</td>
                             <td class="user role">{{ u.role.name }}</td>
                         </tr>

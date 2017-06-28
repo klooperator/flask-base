@@ -20,8 +20,8 @@ class LoginForm(Form):
 class RegistrationForm(Form):
     first_name = StringField(
         'First name', validators=[InputRequired(), Length(1, 64)])
-    last_name = StringField(
-        'Last name', validators=[InputRequired(), Length(1, 64)])
+    #last_name = StringField(
+        #'Last name', validators=[InputRequired(), Length(1, 64)])
     email = EmailField(
         'Email', validators=[InputRequired(), Length(1, 64), Email()])
     password = PasswordField(

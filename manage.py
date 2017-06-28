@@ -80,7 +80,7 @@ def setup_general():
         if User.query.filter_by(email=Config.ADMIN_EMAIL).first() is None:
             user = User(
                 first_name='Admin',
-                last_name='Account',
+                # last_name='Account',
                 password=Config.ADMIN_PASSWORD,
                 confirmed=True,
                 email=Config.ADMIN_EMAIL)

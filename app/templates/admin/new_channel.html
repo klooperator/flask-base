@@ -13,8 +13,8 @@
                 Back to dashboard
             </a>
             <h2 class="ui header">
-                Add New User
-                <div class="sub header">Create a new user account</div>
+                Network
+                <div class="sub header">Add public name to hide a network from users</div>
             </h2>
 
             {% set flashes = {
@@ -26,36 +26,16 @@
 
             {{ f.begin_form(form, flashes) }}
 
-                {{ f.render_form_field(form.role) }}
-
-                <div class="two fields">
-                    {{ f.render_form_field(form.first_name) }}
-                </div>
-
-                {{ f.render_form_field(form.email) }}
-
-                {% if form.password %}
-
-                    <div class="two fields">
-                        {{ f.render_form_field(form.password) }}
-                        {{ f.render_form_field(form.password2) }}
-                    </div>
-
-                {% endif %}
+                {{ f.render_form(form) }}
 
                 {{ f.form_message(flashes['error'], header='Something went wrong.', class='error') }}
                 {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}
                 {{ f.form_message(flashes['info'], header='Information', class='info') }}
                 {{ f.form_message(flashes['success'], header='Success!', class='success') }}
 
-                {% for field in form | selectattr('type', 'equalto', 'SubmitField') %}
-                    {{ f.render_form_field(field) }}
-                {% endfor %}
+                
 
             {{ f.end_form() }}
-            {% if form.password %} 
-              {{ check.password_check('password', 0) }} 
-            {% endif %}
         </div>
     </div>
 {% endblock %}

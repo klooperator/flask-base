@@ -1,6 +1,6 @@
 import os
 import sys
-from raygun4py.middleware import flask as flask_raygun
+# from raygun4py.middleware import flask as flask_raygun
 
 PYTHON_VERSION = sys.version_info[0]
 if PYTHON_VERSION == 3:
@@ -19,7 +19,7 @@ if os.path.exists('config.env'):
 
 
 class Config:
-    APP_NAME = 'Flask-Base'
+    APP_NAME = 'MF'
     if os.environ.get('SECRET_KEY'):
         SECRET_KEY = os.environ.get('SECRET_KEY')
     else:
@@ -42,7 +42,7 @@ class Config:
 
     REDIS_URL = os.getenv('REDISTOGO_URL') or 'http://localhost:6379'
 
-    RAYGUN_APIKEY = os.environ.get('RAYGUN_APIKEY')
+    # RAYGUN_APIKEY = os.environ.get('RAYGUN_APIKEY')
 
     # Parse the REDIS_URL to set RQ config variables
     if PYTHON_VERSION == 3:
@@ -51,6 +51,11 @@ class Config:
     else:
         urlparse.uses_netloc.append('redis')
         url = urlparse.urlparse(REDIS_URL)
+
+    """RQ_DEFAULT_HOST = url.hostname
+    RQ_DEFAULT_PORT = url.port
+    RQ_DEFAULT_PASSWORD = url.password
+    RQ_DEFAULT_DB = 0"""
 
     RQ_DEFAULT_HOST = url.hostname
     RQ_DEFAULT_PORT = url.port
@@ -67,7 +72,7 @@ class DevelopmentConfig(Config):
     ASSETS_DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
-    print('THIS APP IS IN DEBUG MODE. YOU SHOULD NOT SEE THIS IN PRODUCTION.')
+    print('THIS APP IS IN DEBUG MODE. YOU SHOULD NOT SEE THIS IN PRODUCTION.  ' + SQLALCHEMY_DATABASE_URI)
 
 
 class TestingConfig(Config):

@@ -11,5 +11,6 @@ vendor_js = Bundle(
     'vendor/semantic.min.js',
     'vendor/tablesort.min.js',
     'vendor/zxcvbn.js',
+    'vendor/chart.min.js',
     filters='jsmin',
     output='scripts/vendor.js')

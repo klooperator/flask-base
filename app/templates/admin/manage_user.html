@@ -7,6 +7,8 @@
     ('admin.user_info', 'User information'),
     ('admin.change_user_email', 'Change email address'),
     ('admin.change_account_type', 'Change account type'),
+    ('admin.add_data', 'Add new data'),
+    ('admin.add_site', 'Add new site'),
     (deletion_endpoint, 'Delete user')
 ] %}
 
@@ -23,9 +25,16 @@
 
 {% macro user_info(user) %}
     <table class="ui compact definition table">
-        <tr><td>Full name</td><td>{{ '%s %s' % (user.first_name, user.last_name) }}</td></tr>
+        <tr><td>Full name</td><td>{{ '%s' % (user.first_name) }}</td></tr>
         <tr><td>Email address</td><td>{{ user.email }}</td></tr>
         <tr><td>Account type</td><td>{{ user.role.name }}</td></tr>
+        <tr><td>Sites</td>
+        <td>
+        {% for site in sites %}
+            {{site.link}}
+            <br>
+        {% endfor %}
+        </td></tr>
     </table>
 {% endmacro %}
 
@@ -39,6 +48,9 @@
             <h2 class="ui header">
                 {{ user.full_name() }}
                 <div class="sub header">View and manage {{ user.first_name }}’s account.</div>
+                {% if txt %}
+                <div class="sub header">{{ txt }}</div>
+                {% endif %}
             </h2>
         </div>
         <div class="stretched divided very relaxed row">
@@ -68,6 +80,24 @@
                         <a class="ui disabled negative deletion button">
                             Delete this user
                         </a>
+                    </div>
+                    <div class="menu ui">
+                        <table class="ui searchable sortable unstackable selectable celled table">
+                            <thead>
+                                <tr>
+                                    <th>Site</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for site in sites %}
+                                <tr>
+                                    <td>{{ site.link }}</td>
+                                    <td><form action method="POST"><input type="hidden" name="csrf_token" value="{{ csrf_token()|safe }}"><input type="hidden" value="{{ site.link }}" name="site"><input class="ui negative button" type="submit" value="delete"></form></td>                   
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                     </div>
                 {% elif form %}
